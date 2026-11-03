@@ -1,1 +1,96 @@
-# ga-tau-kasi-nama-apa
+9. Pertanian Berkelanjutan — TaniHubungan
+Masalah yang ingin diuji
+Petani membutuhkan informasi harga yang transparan serta akses informasi calon pembeli atau pengepul.
+Solusi: Platform informasi harga dan pencatatan penawaran hasil pertanian dari petani dan pedagang lokal.
+3 fitur utama:
+1.	Informasi Harga Komoditas: Menampilkan harga berdasarkan komoditas, pasar, tanggal, dan sumber data.
+2.	Papan Penawaran Hasil Panen: Petani mencatat komoditas, jumlah, dan perkiraan waktu panen.
+A. Admin
+1.	Login sebagai admin.
+2.	Masuk ke dashboard admin.
+3.	Mengelola akun petani dan pedagang.
+4.	Memverifikasi akun mitra.
+5.	Mengelola kategori komoditas.
+6.	Mengelola sumber informasi harga.
+7.	Memantau penawaran hasil panen.
+8.	Memantau aktivitas pembeli.
+9.	Menangani laporan penipuan atau penyalahgunaan.
+10.	Melihat laporan aktivitas perdagangan.
+B. User (Petani/Pembeli)
+Untuk petani:
+1.	Registrasi atau login.
+2.	Melengkapi profil petani.
+3.	Memilih komoditas pertanian.
+4.	Memasukkan jumlah hasil panen.
+5.	Menentukan perkiraan waktu panen.
+6.	Membuat penawaran hasil pertanian.
+7.	Melihat calon pembeli.
+8.	Menerima atau menolak penawaran.
+9.	Memantau status penjualan.
+Untuk pembeli:
+1.	Registrasi atau login.
+2.	Melengkapi profil pembeli.
+3.	Melihat daftar komoditas.
+4.	Melihat informasi harga.
+5.	Mencari hasil panen.
+6.	Melihat penawaran petani.
+7.	Menghubungi petani melalui mekanisme aplikasi.
+8.	Mengajukan penawaran pembelian.
+9.	Memantau kesepakatan transaksi.
+C. Petugas (Verifikator Data Pertanian)
+1.	Login sebagai petugas.
+2.	Masuk ke dashboard petugas.
+3.	Melihat daftar penawaran yang perlu diperiksa.
+4.	Memeriksa kelengkapan data komoditas.
+5.	Memverifikasi informasi petani.
+6.	Memeriksa sumber data harga.
+7.	Memperbarui tanggal data harga.
+8.	Melaporkan data yang tidak sesuai.
+9.	Mengirim hasil verifikasi kepada admin.
+Fungsi backend: Mengelola informasi harga komoditas, hasil panen, penawaran petani, dan direktori pembeli.
+A. Fitur backend
+Fitur	Proses backend
+Profil petani	Menyimpan identitas petani
+Profil pembeli	Menyimpan identitas pedagang
+Data komoditas	Mengelola jenis pertanian
+Harga komoditas	Mencatat harga berdasarkan sumber
+Hasil panen	Menyimpan informasi panen
+Penawaran	Mengelola penawaran hasil panen
+Permintaan pembelian	Mencatat kebutuhan pembeli
+Negosiasi	Mengelola penawaran harga
+Riwayat transaksi	Mencatat kesepakatan
+B. Database khusus
+Tabel	Kolom utama
+farmer_profiles	id, user_id, farm_name, address, region_id
+buyer_profiles	id, user_id, business_name, address
+commodities	id, commodity_name, unit
+market_prices	id, commodity_id, market_name, price, source, recorded_date
+harvest_listings	id, farmer_id, commodity_id, quantity, unit, harvest_date, status
+harvest_images	id, listing_id, file_id
+purchase_requests	id, buyer_id, listing_id, requested_quantity, proposed_price, status
+price_offers	id, request_id, sender_id, offered_price, notes
+agricultural_transactions	id, request_id, final_price, quantity, status
+C. API
+Method	Endpoint	Fungsi
+POST	/farmers/register	Registrasi petani
+POST	/buyers/register	Registrasi pembeli
+GET	/commodities	Melihat komoditas
+GET	/market-prices	Melihat harga pasar
+POST	/market-prices	Menambahkan informasi harga
+GET	/market-prices/history	Melihat riwayat harga
+POST	/harvest-listings	Membuat penawaran hasil panen
+GET	/harvest-listings	Melihat hasil panen
+GET	/harvest-listings/{id}	Detail hasil panen
+PUT	/harvest-listings/{id}	Memperbarui hasil panen
+POST	/purchase-requests	Mengajukan pembelian
+GET	/purchase-requests/my	Melihat permintaan pembelian sendiri
+POST	/price-offers	Mengirim penawaran harga
+PATCH	/purchase-requests/{id}/status	Memperbarui status
+POST	/transactions	Mencatat kesepakatan
+GET	/reports/agriculture	Laporan pertanian
+Hak akses:
+•	Admin: mengelola akun, komoditas, dan data harga.
+•	User: terdiri atas petani dan pembeli.
+•	Petugas: memverifikasi data komoditas dan sumber informasi harga.
+Catatan: Harga wajib memiliki sumber, tanggal pencatatan, satuan, dan lokasi pasar. Jangan menampilkan harga lama seolah-olah merupakan harga terkini.
+
